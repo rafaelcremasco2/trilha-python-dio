@@ -1,3 +1,5 @@
+from datetime import datetime
+
 menu = """
 
 [d] Depositar
@@ -9,6 +11,7 @@ menu = """
 
 saldo = 0
 limite = 500
+LIMITE_APOS_18H = 100 # Limite reduzido após 18h
 extrato = ""
 numero_saques = 0
 LIMITE_SAQUES = 3
@@ -30,9 +33,17 @@ while True:
     elif opcao == "s":
         valor = float(input("Informe o valor do saque: "))
 
+        horario_inseguro = datetime.now().hour >= 18
+
         excedeu_saldo = valor > saldo
 
-        excedeu_limite = valor > limite
+        # Define o limite de saque dependendo do horário
+        if horario_inseguro:
+            limite_seguro = LIMITE_APOS_18H
+        else:
+            limite_seguro = limite
+
+        excedeu_limite = valor > limite_seguro
 
         excedeu_saques = numero_saques >= LIMITE_SAQUES
 
@@ -40,7 +51,10 @@ while True:
             print("Operação falhou! Você não tem saldo suficiente.")
 
         elif excedeu_limite:
-            print("Operação falhou! O valor do saque excede o limite.")
+            if horario_inseguro:
+                print(f"Operação falhou! O valor do saque excede o limite após as 18h de {LIMITE_APOS_18H:.2f}.")
+            else:
+                print(f"Operação falhou! O valor do saque excede o limite de {limite_seguro:.2f}.")
 
         elif excedeu_saques:
             print("Operação falhou! Número máximo de saques excedido.")
