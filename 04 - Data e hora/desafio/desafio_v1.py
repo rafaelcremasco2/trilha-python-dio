@@ -33,8 +33,10 @@ class Cliente:
         self.indice_conta = 0
 
     def realizar_transacao(self, conta, transacao):
-        # TODO: validar o número de transações e invalidar a operação se for necessário
-        # print("\n@@@ Você excedeu o número de transações permitidas para hoje! @@@")
+        if len(conta.historico.transacoes_do_dia()) >= 5:
+            print("\n@@@ Você excedeu o número de transações permitidas para hoje! @@@")
+            return
+        
         transacao.registrar(conta)
 
     def adicionar_conta(self, conta):
@@ -168,9 +170,15 @@ class Historico:
             if tipo_transacao is None or transacao["tipo"].lower() == tipo_transacao.lower():
                 yield transacao
 
-    # TODO: filtrar todas as transações realizadas no dia
+
     def transacoes_do_dia(self):
-        pass
+        trasacoes_do_dia = []
+        hoje = datetime.now()
+        for transacao in self._transacoes:
+            data_transacao = datetime.strptime(transacao["data"], "%d-%m-%Y %H:%M:%S")
+            if data_transacao.date() == hoje.date():
+                trasacoes_do_dia.append(transacao)
+        return trasacoes_do_dia
 
 
 class Transacao(ABC):
