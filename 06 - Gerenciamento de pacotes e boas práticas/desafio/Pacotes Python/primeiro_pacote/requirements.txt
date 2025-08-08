@@ -1,0 +1,2 @@
+# requirements.txt
+# Pacote de teste sem dependências

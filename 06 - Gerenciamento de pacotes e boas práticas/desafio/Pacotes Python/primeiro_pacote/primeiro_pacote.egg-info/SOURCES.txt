@@ -1,0 +1,13 @@
+README.md
+setup.py
+nome_do_pacote/__init__.py
+nome_do_pacote/nome_do_modulo_1/__init__.py
+nome_do_pacote/nome_do_modulo_1/arquivo_1.py
+nome_do_pacote/nome_do_modulo_1/arquivo_2.py
+nome_do_pacote/nome_do_modulo_2/__init__.py
+nome_do_pacote/nome_do_modulo_2/arquivo_1.py
+nome_do_pacote/nome_do_modulo_2/arquivo_2.py
+primeiro_pacote.egg-info/PKG-INFO
+primeiro_pacote.egg-info/SOURCES.txt
+primeiro_pacote.egg-info/dependency_links.txt
+primeiro_pacote.egg-info/top_level.txt
